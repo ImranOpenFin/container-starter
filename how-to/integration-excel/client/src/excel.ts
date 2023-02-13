@@ -79,9 +79,22 @@ async function openExcel(): Promise<void> {
 		await selectWorksheet(openWorksheets[selectedWorksheetIndex].name);
 	} catch {
 		await excel.createWorkbook();
-		await populateWorkbooks();
+		const workbooks = await excel.getWorkbooks();
+		//await populateWorkbooks();
+		await secondBook()
+
 	}
 }
+
+
+async function secondBook(): Promise<void> {
+		await excel.createWorkbook();
+		const workbooks = await excel.getWorkbooks();
+		for (const book of workbooks) {
+			await book.addWorksheet();
+		}
+}
+
 
 async function populateWorkbooks(): Promise<void> {
 	if (excel) {
